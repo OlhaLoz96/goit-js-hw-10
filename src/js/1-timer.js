@@ -5,7 +5,7 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 const button = document.querySelector('.timer-btn');
-const timerValues = document.querySelectorAll('.value');
+const input = document.querySelector('#datetime-picker');
 
 let userSelectedDate;
 
@@ -35,10 +35,6 @@ button.addEventListener('click', handleClick);
 
 function handleClick(event) {
   button.disabled = true;
-
-  const input = document.querySelector(
-    '.flatpickr-input[type="datetime-local"]'
-  );
   input.disabled = true;
 
   const intervalId = setInterval(() => {
@@ -80,7 +76,8 @@ function addLeadingZero(value) {
 }
 
 function updateTimer(obj) {
-  [...timerValues].forEach(
-    item => (item.textContent = obj[Object.keys(item.dataset)])
+  const keys = Object.keys(obj);
+  keys.forEach(
+    key => (document.querySelector(`[data-${key}]`).textContent = obj[key])
   );
 }
